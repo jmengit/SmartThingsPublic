@@ -1,6 +1,6 @@
 /*
-* Author: jmen
-*test
+* Author: tguerena and surge919
+*
 * Device Handler
 */
 
@@ -14,7 +14,8 @@ preferences {
 	section("Internal Access"){
 		input "internal_ip", "text", title: "Internal IP", required: false
 		input "internal_port", "text", title: "Internal Port (if not 80)", required: false
-		input "internal_on_path", "text", title: "Internal Momentary Path (/blah?q=this)", required: false
+		input "internal_on_path", "text", title: "Internal On Path (/blah?q=this)", required: false
+		input "internal_off_path", "text", title: "Internal Off Path (/blah?q=this)", required: false
 	}
 }
 
@@ -22,9 +23,10 @@ preferences {
 
 
 metadata {
-	definition (name: "URI Momentary", namespace: "jmen", author: "jmen") {
+	definition (name: "URI Switch", namespace: "tguerena", author: "Troy Guerena") {
 		capability "Actuator"
-		capability "Momentary
+			capability "Switch"
+			capability "Sensor"
 	}
 
 	// simulator metadata
@@ -39,6 +41,9 @@ metadata {
 		}
 		standardTile("offButton", "device.button", width: 1, height: 1, canChangeIcon: true) {
 			state "default", label: 'Force Off', action: "switch.off", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
+		}
+		standardTile("onButton", "device.switch", width: 1, height: 1, canChangeIcon: true) {
+			state "default", label: 'Force On', action: "switch.on", icon: "st.switches.switch.on", backgroundColor: "#79b821"
 		}
 		main "button"
 			details (["button","onButton","offButton"])
